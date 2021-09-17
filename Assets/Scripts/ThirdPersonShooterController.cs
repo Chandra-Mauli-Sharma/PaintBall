@@ -9,7 +9,8 @@ public class ThirdPersonShooterController : MonoBehaviour
 {
     [SerializeField]private CinemachineVirtualCamera aimVirtualCamera;
     [SerializeField]private LayerMask aimColliderLayerMask = new LayerMask();
-    [SerializeField]private Transform pfBulletProjectile; 
+    [SerializeField]private Transform pfBulletProjectile;
+    [SerializeField]private bool isCrouch; 
     [SerializeField]private Transform spawnBulletPosition;
     
     private StarterAssetsInputs starterAssetsInputs;
@@ -46,6 +47,20 @@ public class ThirdPersonShooterController : MonoBehaviour
             Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
             Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));  
             starterAssetsInputs.shoot=false;
+        }
+
+        // if(starterAssetsInputs.crouch)
+        // {
+        //     isCrouch=!isCrouch;
+        // }
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            //animator.SetBool("Crouch",isCrouch);
+            animator.SetTrigger("Crouch");
+        }
+        if(Input.GetKeyUp(KeyCode.C))
+        {
+            animator.SetTrigger("CrouchUp");
         }
     }
 }
